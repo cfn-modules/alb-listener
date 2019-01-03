@@ -20,14 +20,13 @@ npm i @cfn-modules/alb-listener
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'cfn-modules example'
 Resources:
-  Target:
+  Listener:
     Type: 'AWS::CloudFormation::Stack'
     Properties:
       Parameters:
-        NlbModule: !GetAtt 'Nlb.Outputs.StackName' # required
-        VpcModule: !GetAtt 'Vpc.Outputs.StackName' # required
+        AlbModule: !GetAtt 'Alb.Outputs.StackName' # required
         Port: '80' # optional
-        DeregistrationDelayInSeconds: '300' # optional
+        CertificateArn: '' # optional
       TemplateURL: './node_modules/@cfn-modules/alb-listener/module.yml'
 ```
 
@@ -45,15 +44,8 @@ Resources:
   </thead>
   <tbody>
     <tr>
-      <td>NlbModule</td>
-      <td>Stack name of <a href="https://www.npmjs.com/package/@cfn-modules/nlb">nlb module</a></td>
-      <td></td>
-      <td>yes</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>VpcModule</td>
-      <td>Stack name of <a href="https://www.npmjs.com/package/@cfn-modules/vpc">vpc module</a></td>
+      <td>AlbModule</td>
+      <td>Stack name of <a href="https://www.npmjs.com/package/@cfn-modules/alb">alb module</a></td>
       <td></td>
       <td>yes</td>
       <td></td>
@@ -66,11 +58,11 @@ Resources:
       <td></td>
     </tr>
     <tr>
-      <td>DeregistrationDelayInSeconds</td>
-      <td>The amount of time, in seconds, for Elastic Load Balancing to wait before changing the state of a deregistering target from draining to unused</td>
-      <td>300</td>
+      <td>CertificateArn</td>
+      <td>Amazon Resource Name (ARN) of the certificate to associate with the listner</td>
+      <td></td>
       <td>no</td>
-      <td>0-3600</td>
+      <td></td>
     </tr>
   </tbody>
 </table>
