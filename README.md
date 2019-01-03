@@ -20,7 +20,7 @@ npm i @cfn-modules/alb-listener
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'cfn-modules example'
 Resources:
-  Listener:
+  AlbListener:
     Type: 'AWS::CloudFormation::Stack'
     Properties:
       Parameters:

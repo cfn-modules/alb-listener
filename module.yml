@@ -14,7 +14,7 @@
 # limitations under the License.
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'cfn-modules: ALB listener'
-# cfn-modules:implements(ExposeArn, ExposeSecurityGroupId)
+# cfn-modules:implements(ExposeArn)
 Parameters:
   AlbModule:
     Description: 'Stack name of alb module.'
