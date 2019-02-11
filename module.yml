@@ -27,7 +27,7 @@ Parameters:
     Type: Number
     Default: 80
   CertificateArn:
-    Description: 'Optional Amazon Resource Name (ARN) of the certificate to associate with the listner.'
+    Description: 'Optional Amazon Resource Name (ARN) of the certificate to associate with the listener.'
     Type: String
     Default: ''
 Conditions:
