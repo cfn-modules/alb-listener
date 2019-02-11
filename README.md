@@ -59,7 +59,7 @@ Resources:
     </tr>
     <tr>
       <td>CertificateArn</td>
-      <td>Amazon Resource Name (ARN) of the certificate to associate with the listner</td>
+      <td>Amazon Resource Name (ARN) of the certificate to associate with the listener</td>
       <td></td>
       <td>no</td>
       <td></td>
