@@ -38,9 +38,6 @@ Resources:
 ## Related modules
 
 * [alb](https://github.com/cfn-modules/alb)
-* [alb-redirect-to-https](https://github.com/cfn-modules/alb-redirect-to-https)
-* [ecs-alb-target](https://github.com/cfn-modules/ecs-alb-target)
-* [fargate-service](https://github.com/cfn-modules/fargate-service)
 
 ## Parameters
 
