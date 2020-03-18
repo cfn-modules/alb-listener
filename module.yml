@@ -19,9 +19,6 @@ Parameters:
   AlbModule:
     Description: 'Stack name of alb module.'
     Type: String
-  # TODO add support AuthProxyModule:
-  #  Description: 'Stack name of auth-proxy module.'
-  #  Type: String
   Port:
     Description: 'The port on which the listener listens for requests.'
     Type: Number
@@ -30,10 +27,14 @@ Parameters:
     Description: 'Optional Amazon Resource Name (ARN) of the certificate to associate with the listener.'
     Type: String
     Default: ''
+  ClientSgModule:
+    Description: 'Optional stack name of client-sg module (requires ALB Scheme := internal).'
+    Type: String
+    Default: ''
 Conditions:
-  # HasAuthProxyModule: !Not [!Equals [!Ref AuthProxyModule, '']]
-  # HasNotAuthProxyModule: !Not [!Condition HasAuthProxyModule]
   HasCertificateArn: !Not [!Equals [!Ref CertificateArn, '']]
+  HasClientSgModule: !Not [!Equals [!Ref ClientSgModule, '']]
+  HasNotClientSgModule: !Not [!Condition HasClientSgModule]
 Resources:
   Listener:
     Type: 'AWS::ElasticLoadBalancingV2::Listener'
@@ -50,27 +51,27 @@ Resources:
       Protocol: !If [HasCertificateArn, HTTPS, HTTP]
   SecurityGroupInWorld:
     Type: 'AWS::EC2::SecurityGroupIngress'
-    # Condition: HasNotAuthProxyModule
+    Condition: HasNotClientSgModule
     Properties:
       GroupId: {'Fn::ImportValue': !Sub '${AlbModule}-SecurityGroupId'}
       IpProtocol: tcp
       FromPort: !Ref Port
       ToPort: !Ref Port
       CidrIp: '0.0.0.0/0'
-  # SecurityGroupInAuthProxy:
-  #   Type: 'AWS::EC2::SecurityGroupIngress'
-  #   Condition: HasAuthProxyModule
-  #   Properties:
-  #     GroupId: {'Fn::ImportValue': !Sub '${AlbModule}-SecurityGroupId'}
-  #     IpProtocol: tcp
-  #     FromPort: !Ref Port
-  #     ToPort: !Ref Port
-  #     SourceSecurityGroupId: {'Fn::ImportValue': !Sub '${AuthProxyModule}-SecurityGroupId'}
+  SecurityGroupInClientSg:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Condition: HasClientSgModule
+    Properties:
+      GroupId: {'Fn::ImportValue': !Sub '${AlbModule}-SecurityGroupId'}
+      IpProtocol: tcp
+      FromPort: !Ref Port
+      ToPort: !Ref Port
+      SourceSecurityGroupId: {'Fn::ImportValue': !Sub '${ClientSgModule}-SecurityGroupId'}
 Outputs:
   ModuleId:
     Value: 'alb-listener'
   ModuleVersion:
-    Value: '1.0.0'
+    Value: '1.1.0'
   StackName:
     Value: !Ref 'AWS::StackName'
   Arn:
