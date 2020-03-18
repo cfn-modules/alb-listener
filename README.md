@@ -27,6 +27,7 @@ Resources:
         AlbModule: !GetAtt 'Alb.Outputs.StackName' # required
         Port: '80' # optional
         CertificateArn: '' # optional
+        ClientSgModule: '' # optional
       TemplateURL: './node_modules/@cfn-modules/alb-listener/module.yml'
 ```
 
@@ -69,6 +70,13 @@ Resources:
     <tr>
       <td>CertificateArn</td>
       <td>Amazon Resource Name (ARN) of the certificate to associate with the listener</td>
+      <td></td>
+      <td>no</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>ClientSgModule</td>
+      <td>Stack name of <a href="https://www.npmjs.com/package/@cfn-modules/client-sg">client-sg module</a> where traffic is allowed from on port $Port to the listener</td>
       <td></td>
       <td>no</td>
       <td></td>
