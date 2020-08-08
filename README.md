@@ -1,6 +1,3 @@
-[![Build Status](https://travis-ci.org/cfn-modules/alb-listener.svg?branch=master)](https://travis-ci.org/cfn-modules/alb-listener)
-[![NPM version](https://img.shields.io/npm/v/@cfn-modules/alb-listener.svg)](https://www.npmjs.com/package/@cfn-modules/alb-listener)
-
 # cfn-modules: ALB listener
 
 ALB listener.
