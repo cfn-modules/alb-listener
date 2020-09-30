@@ -49,7 +49,7 @@ Resources:
       LoadBalancerArn: {'Fn::ImportValue': !Sub '${AlbModule}-Arn'}
       Port: !Ref Port
       Protocol: !If [HasCertificateArn, HTTPS, HTTP]
-      SslPolicy: 'ELBSecurityPolicy-FS-1-2-Res-2019-08'
+      SslPolicy: !If [HasCertificateArn, 'ELBSecurityPolicy-FS-1-2-Res-2019-08', !Ref 'AWS::NoValue']
   SecurityGroupInWorld:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Condition: HasNotClientSgModule
