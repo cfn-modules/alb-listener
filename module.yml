@@ -59,6 +59,15 @@ Resources:
       FromPort: !Ref Port
       ToPort: !Ref Port
       CidrIp: '0.0.0.0/0'
+  SecurityGroupInWorldIpv6:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Condition: HasNotClientSgModule
+    Properties:
+      GroupId: {'Fn::ImportValue': !Sub '${AlbModule}-SecurityGroupId'}
+      IpProtocol: tcp
+      FromPort: !Ref Port
+      ToPort: !Ref Port
+      CidrIpv6: '::/0'
   SecurityGroupInClientSg:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Condition: HasClientSgModule
